@@ -147,7 +147,7 @@ M.get_matches = function(bufnr)
     local start_row = math.max(cursor[1] - stopline, 0)
     local end_row = math.min(cursor[1] + stopline, api.nvim_buf_line_count(bufnr))
 
-    lang_tree:parse({ start_row, end_row })
+    pcall(lang_tree.parse, lang_tree, { start_row, end_row })
     ---@type vim.treesitter.LanguageTree?
     local nested_lang_tree = lang_tree:language_for_range({ cursor[1]-1, cursor[2], cursor[1]-1, cursor[2] })
     while vim.tbl_isempty(matches) and nested_lang_tree ~= nil do
